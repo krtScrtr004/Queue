@@ -11,6 +11,9 @@ namespace Queue
 	class queue
 	{
 	protected:
+		static constexpr std::size_t CAPACITY = 100;
+
+	protected:
 		virtual void enqueue(const Type&) = 0;
 		virtual void dequeue() = 0;
 		virtual Type first() const = 0;
@@ -20,18 +23,17 @@ namespace Queue
 	};
 
 	template <typename Type>
-	class queueArray
+	class queueArray : public queue<Type>
 	{
 	private:
-		constexpr std::size_t CAPACITY;
 		std::size_t size;
 		std::size_t frontIndex;
 		std::size_t backIndex;
 
-		std::array<Type, CAPACITY> container;
+		std::array<Type, queue<Type>::CAPACITY> container;
 
 	public:
-		queueArray() : CAPACITY(100), size(0), frontIndex(0), backIndex(0) {}
+		queueArray() : size(0), frontIndex(0), backIndex(0) {}
 
 		void enqueue(const  Type& data) override
 		{
@@ -41,16 +43,18 @@ namespace Queue
 				return;
 			}
 
-			backIndex = (backIndex + 1) % CAPACITY;
+			backIndex = (backIndex + 1) % queue<Type>::CAPACITY;
 			container[backIndex] = data;
 			size++;
 		}
+
+		
 
 		Type first() const override { return (!isEmpty() ? container[frontIndex] : Type()); }
 
 		Type back() const override { return (!isEmpty() ? container[backIndex] : Type()); }
 
-		bool isFull() const override { return (size == CAPACITY); }
+		bool isFull() const override { return (size == queue<Type>::CAPACITY); }
 
 		bool isEmpty() const override { return (size == 0); }
 	};
