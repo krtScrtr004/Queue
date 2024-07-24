@@ -11,7 +11,7 @@ namespace Queue
 	class queue
 	{
 	protected:
-		static constexpr std::size_t CAPACITY = 100;
+		static constexpr std::size_t CAPACITY = 10000;
 
 	protected:
 		virtual void enqueue(const Type&) = 0;
@@ -33,7 +33,7 @@ namespace Queue
 		std::array<Type, queue<Type>::CAPACITY> container;
 
 	public:
-		queueArray() : size(0), frontIndex(0), backIndex(0) {}
+		queueArray() : container(), size(0), frontIndex(0), backIndex(0) {}
 
 		void enqueue(const  Type& data) override
 		{
