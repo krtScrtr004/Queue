@@ -31,6 +31,8 @@ namespace Queue
 		std::array<Type, CAPACITY> container;
 
 	public:
+		queueArray() : CAPACITY(100), size(0), frontIndex(0), backIndex(0) {}
+
 		void enqueue(const  Type& data) override
 		{
 			if (isFull)
@@ -41,7 +43,12 @@ namespace Queue
 
 			backIndex = (backIndex + 1) % CAPACITY;
 			container[backIndex] = data;
+			size++;
 		}
+
+		Type first() const override { return (!isEmpty() ? container[frontIndex] : Type()); }
+
+		Type back() const override { return (!isEmpty() ? container[backIndex] : Type()); }
 
 		bool isFull() const override { return (size == CAPACITY); }
 
