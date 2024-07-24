@@ -16,7 +16,7 @@ namespace Queue
 	protected:
 		virtual void enqueue(const Type&) = 0;
 		virtual void dequeue() = 0;
-		virtual Type first() const = 0;
+		virtual Type front() const = 0;
 		virtual Type back() const = 0;
 		virtual bool isFull() const = 0;
 		virtual bool isEmpty() const = 0;
@@ -37,7 +37,7 @@ namespace Queue
 
 		void enqueue(const  Type& data) override
 		{
-			if (isFull)
+			if (isFull())
 			{
 				std::cerr << "Queue overflow" << std::endl;
 				return;
@@ -48,9 +48,20 @@ namespace Queue
 			size++;
 		}
 
-		
+		void dequeue() override 
+		{
+			if (isEmpty())
+			{
+				std::cerr << "Queue underflow" << std::endl;
+				return;
+			}
 
-		Type first() const override { return (!isEmpty() ? container[frontIndex] : Type()); }
+			container[frontIndex] = Type();
+			frontIndex = (frontIndex + 1) % queue<Type>::CAPACITY;
+			size--;
+		}
+
+		Type front() const override { return (!isEmpty() ? container[frontIndex + 1] : Type()); }
 
 		Type back() const override { return (!isEmpty() ? container[backIndex] : Type()); }
 
