@@ -33,7 +33,14 @@ namespace Queue
 	public:
 		void enqueue(const  Type& data) override
 		{
-			// if ()
+			if (isFull)
+			{
+				std::cerr << "Queue overflow" << std::endl;
+				return;
+			}
+
+			backIndex = (backIndex + 1) % CAPACITY;
+			container[backIndex] = data;
 		}
 
 		bool isFull() const override { return (size == CAPACITY); }
