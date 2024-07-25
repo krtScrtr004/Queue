@@ -1,0 +1,1 @@
+This repository contains my implementation of a simple stack data type, Queue, in C++. It includes two versions: one using std::array and another using std::list, both inheriting from an abstract class called Queue. It provides the basic operations for a queue data structure: enqueue, dequeue, front, back, isFull, and isEmpty.
