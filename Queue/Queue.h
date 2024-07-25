@@ -4,6 +4,7 @@
 
 #include <array>
 #include <iostream>
+#include <list>
 
 namespace Queue
 {
@@ -68,6 +69,38 @@ namespace Queue
 		bool isFull() const override { return (size == queue<Type>::CAPACITY); }
 
 		bool isEmpty() const override { return (size == 0); }
+	};
+
+	template <typename Type>
+	class queueList : public queue<Type>
+	{
+	private:
+		std::size_t size;
+		Type* frontElem;
+		Type* backElem;
+
+		std::list<Type> container;
+
+	public:
+		queueList() : container(nullptr), size(0), frontElem(nullptr), backElem(nullptr) {}
+
+		void enqueue(const Type& data) override 
+		{
+
+		}
+
+		void dequeue() override
+		{
+
+		}
+
+		Type front() const override { return }
+
+		Type back() const override { return }
+
+		bool isFull() const override { return (size == queue<Type>::CAPACITY); }
+
+		bool isEmpty() const override { return ((container.size() < 1) && (frontElem == nullptr || backElem == nullptr)); }
 	};
 }
 
