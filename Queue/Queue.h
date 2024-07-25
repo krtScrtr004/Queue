@@ -86,12 +86,26 @@ namespace Queue
 
 		void enqueue(const Type& data) override 
 		{
+			if (isFull())
+			{
+				std::cerr << "Queue overflow" << std::endl;
+				return;
+			}
 
+			container.emplace_back(data);
+			size++;
 		}
 
 		void dequeue() override
 		{
+			if (isEmpty())
+			{
+				std::cerr << "Queue underflow" << std::endl;
+				return;
+			}
 
+			container.pop_front();
+			size--;
 		}
 
 		Type front() const override { return }
@@ -100,7 +114,7 @@ namespace Queue
 
 		bool isFull() const override { return (size == queue<Type>::CAPACITY); }
 
-		bool isEmpty() const override { return ((container.size() < 1) && (frontElem == nullptr || backElem == nullptr)); }
+		bool isEmpty() const override { return ((size < 1) && (frontElem == nullptr || backElem == nullptr)); }
 	};
 }
 
