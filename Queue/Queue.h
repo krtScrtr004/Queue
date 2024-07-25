@@ -75,14 +75,10 @@ namespace Queue
 	class queueList : public queue<Type>
 	{
 	private:
-		std::size_t size;
-		Type* frontElem;
-		Type* backElem;
-
 		std::list<Type> container;
 
 	public:
-		queueList() : container(nullptr), size(0), frontElem(nullptr), backElem(nullptr) {}
+		queueList() : container() {}
 
 		void enqueue(const Type& data) override 
 		{
@@ -93,7 +89,6 @@ namespace Queue
 			}
 
 			container.emplace_back(data);
-			size++;
 		}
 
 		void dequeue() override
@@ -105,16 +100,15 @@ namespace Queue
 			}
 
 			container.pop_front();
-			size--;
 		}
 
-		Type front() const override { return }
+		Type front() const override { return ((container.size() > 0) ? container.front() : Type()); }
 
-		Type back() const override { return }
+		Type back() const override { return ((container.size() > 0) ? container.back() : Type()); }
 
-		bool isFull() const override { return (size == queue<Type>::CAPACITY); }
+		bool isFull() const override { return (container.size() == queue<Type>::CAPACITY); }
 
-		bool isEmpty() const override { return ((size < 1) && (frontElem == nullptr || backElem == nullptr)); }
+		bool isEmpty() const override { return (container.size() < 1); }
 	};
 }
 
